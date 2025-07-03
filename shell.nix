@@ -104,12 +104,12 @@ stdenv.mkDerivation (androidEnvironment // {
 
     (rustPlatform.buildRustPackage {
       name = "crown";
-      src = ./support/crown;
+      src = ./servo/support/crown;
       doCheck = false;
       cargoLock = {
         # crown is not in our Cargo workspace, so this only pulls crown and crown’s dependencies
         # into the Nix store, not Servo and Servo’s dependencies.
-        lockFile = ./support/crown/Cargo.lock;
+        lockFile = ./servo/support/crown/Cargo.lock;
       };
       RUSTC_BOOTSTRAP = "crown";
     })
