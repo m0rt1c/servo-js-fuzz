@@ -101,6 +101,7 @@ stdenv.mkDerivation (androidEnvironment // {
 
     zsh
     python3Packages.pip
+    tmux
 
     (rustPlatform.buildRustPackage {
       name = "crown";
@@ -192,6 +193,7 @@ stdenv.mkDerivation (androidEnvironment // {
       # get patched in a way that makes them dependent on the Nix store.
       repo_root=$(git rev-parse --show-toplevel)
       export RUSTUP_HOME=$repo_root/.rustup
+      zsh
     fi
   '';
 })
