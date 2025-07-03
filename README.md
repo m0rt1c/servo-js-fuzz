@@ -1,6 +1,7 @@
 
 ## Setup
 
+1. Install nix
 1. `git submodule init && git submodule update --depth 1`
 1. `nix-shell` or follow their documentation on how to install all the build dependencies and the afl requirements
 1. `cargo afl config --build`
