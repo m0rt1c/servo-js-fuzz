@@ -19,7 +19,7 @@ with import (builtins.fetchTarball {
   };
 };
 let
-    rustToolchain = rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
+    rustToolchain = rust-bin.fromRustupToolchainFile ./servo/rust-toolchain.toml;
     rustPlatform = makeRustPlatform {
       cargo = rustToolchain;
       rustc = rustToolchain;
