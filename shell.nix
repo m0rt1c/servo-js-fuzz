@@ -193,7 +193,7 @@ stdenv.mkDerivation (androidEnvironment // {
       # get patched in a way that makes them dependent on the Nix store.
       repo_root=$(git rev-parse --show-toplevel)
       export RUSTUP_HOME=$repo_root/.rustup
-      zsh
     fi
+    exec zsh
   '';
 })
