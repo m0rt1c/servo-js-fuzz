@@ -12,9 +12,10 @@
 
 To test that each target is working you may run the following command and observe the output. Where `target_name` is one of the files under `src/bin` without the `.rs` extension: for example `random_script`.
 
-`cargo afl run --bin <target_name> < path/to/test/corpus`
+`cat path/to/test/input | ./target/debug/<target_name>`
 
 Note that the command will hange since it expect the corpus to crash it
+You must make sure that the target does not crash with all the inputs, and you may use this to check if your target is behaving correctly
 
 ## Fuzzing
 
