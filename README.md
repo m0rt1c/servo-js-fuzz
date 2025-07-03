@@ -25,3 +25,18 @@ You may start a single core fuzzing instance with:
 Note you may change the `in/random` folder to select different starting inputs
 Note you may use just the `in` folder to select all starting inputs
 Note that folder in/custom is not tracked by git and you may use it to test new inputs
+
+### Wrapper script
+
+To run multiple master and secondary instances on the same target you may use the `run_fuzzer.sh` script like this
+
+```
+./run_fuzzer.sh target/debug/<target_name> in out 10
+```
+
+* #1 arg is the full path of the target
+* #2 arg is the full path of the input folder
+* #3 arg is the full path of the output folder, afl will automatically create subdirs based on the main and secondary names **but you may still have conflicts** so you might need to set it to `out/something`
+* #4 arg is the number of cores to use from 2 to 10, this is not yet checked or enfored in the script
+
+This script will create a tmux instance with a sub instance for each main and secondary instances, not the best but it is a simple example
