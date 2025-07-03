@@ -194,6 +194,5 @@ stdenv.mkDerivation (androidEnvironment // {
       repo_root=$(git rev-parse --show-toplevel)
       export RUSTUP_HOME=$repo_root/.rustup
     fi
-    exec zsh
   '';
 })
