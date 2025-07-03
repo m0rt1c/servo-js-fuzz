@@ -2,8 +2,8 @@
 .idea
 .rustup/
 
-in/*
-!in/.gitkeep
+in/custom/*
+!in/custom/.gitkeep
 
 out/*
 !out/.gitkeep

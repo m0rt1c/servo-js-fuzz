@@ -20,4 +20,7 @@ Note that the command will hange since it expect the corpus to crash it
 
 You may start a single core fuzzing instance with: 
 
-`cargo afl fuzz -i in -o out target/debug/<target_name>`
+`cargo afl fuzz -i in/random -o out target/debug/<target_name>`
+
+Note you  may change the `in/random` folder to select different starting inputs
+Note that folder in/custom is not tracked by git and you may use it to test new inputs
