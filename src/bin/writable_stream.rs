@@ -29,7 +29,7 @@ async function target(input) {
     } catch (error) {
     }
 }
-target("%input%)")
+target("%input%")
 "#;
 
 fn main() {

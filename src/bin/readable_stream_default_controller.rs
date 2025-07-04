@@ -22,7 +22,7 @@ async function target(input) {
     },
     });
 }
-target("%input%)")
+target("%input%")
 "#;
 
 fn main() {

@@ -22,7 +22,7 @@ async function target(input) {
     for await (const chunk of readableStream) {
     }
 }
-target("%input%)")
+target("%input%")
 "#;
 
 fn main() {
