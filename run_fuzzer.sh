@@ -22,10 +22,10 @@ tmux send-keys -t "$SESSION_NAME:main" \
 
 # --- Secondary instances ---
 
-tmux new-window -t "$SESSION_NAME" -n "secondary #0"
-tmux send-keys -t "$SESSION_NAME:$0" \
+tmux new-window -t "$SESSION_NAME" -n "0"
+tmux send-keys -t "$SESSION_NAME:0" \
     "AFL_USE_ASAN=1 AFL_USE_UBSAN=1 AFL_USE_CFISAN=1 cargo afl fuzz -i $INPUT_DIR -o $OUTPUT_DIR -S sec-${SESSION_NAME}-1 $TARGET" C-m
 
-tmux new-window -t "$SESSION_NAME" -n "secondary #1"
-tmux send-keys -t "$SESSION_NAME:$1" \
+tmux new-window -t "$SESSION_NAME" -n "1"
+tmux send-keys -t "$SESSION_NAME:1" \
     "cargo afl fuzz -i $INPUT_DIR -o $OUTPUT_DIR -S sec-${SESSION_NAME}-2 -l 2AT $TARGET" C-m
