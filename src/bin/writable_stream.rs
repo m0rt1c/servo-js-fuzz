@@ -22,8 +22,8 @@ function target(input) {
 
     writer.write(input)
         .then(() => writer.close())
-        .catch(error => {
-            // Handle error if needed
+        .catch(err => {
+           new Error(`Sink error: ${err}`);
         });
 }
 target("%input%")

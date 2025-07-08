@@ -14,13 +14,11 @@ function target(input) {
     const stream = new ReadableStream({
         start(controller) {
             controller.enqueue(new TextEncoder().encode(input));
-            controller.close(); // Close the stream after enqueueing
+            controller.close();
         },
         pull(controller) {
-            // No-op for now
         },
         cancel() {
-            // No-op for now
         },
     });
 

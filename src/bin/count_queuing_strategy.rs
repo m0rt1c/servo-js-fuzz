@@ -29,7 +29,6 @@ function target(input) {
         reader.read().then(({ done, value }) => {
             if (done) return;
             const size = queueingStrategy.size(value);
-            // Do something with size if needed
             readNext();
         });
     }

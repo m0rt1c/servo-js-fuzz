@@ -25,7 +25,7 @@ writer.write("%input%")
   .then(function read() {
     return reader.read().then(({ done, value }) => {
       if (done) return;
-      console.log(value); // HELLO  WORLD
+      console.log(value);
       return read();
     });
 });

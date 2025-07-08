@@ -23,8 +23,7 @@ function target(input) {
     function readNext() {
         reader.read().then(({ done, value }) => {
             if (done) return;
-            // Process `value` here if needed
-            readNext(); // Continue reading if there are more chunks
+            readNext();
         });
     }
 

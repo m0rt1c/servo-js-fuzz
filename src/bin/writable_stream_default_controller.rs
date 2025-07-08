@@ -11,7 +11,7 @@ thread_local! {
 
 const SCRIPT_FORMAT: &str = r#"
 const list = document.createElement("ul");
-document.body.appendChild(list); // So it appears on the page
+document.body.appendChild(list);
 
 function sendMessage(message, writableStream) {
   const defaultWriter = writableStream.getWriter();
@@ -67,7 +67,7 @@ const writableStream = new WritableStream(
       list.appendChild(listItem);
     },
     abort(err) {
-      console.log("Sink error:", err);
+     new Error(`Sink error: ${err}`);
     },
   },
   queuingStrategy
