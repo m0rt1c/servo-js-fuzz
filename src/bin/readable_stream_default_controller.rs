@@ -10,16 +10,30 @@ thread_local! {
 }
 
 const SCRIPT_FORMAT: &str = r#"
-async function target(input) {
-    let interval;
+function target(input) {
     const stream = new ReadableStream({
-    start(controller) {
-        controller.enqueue(input);
-    },
-    pull(controller) {
-    },
-    cancel() {
-    },
+        start(controller) {
+            controller.enqueue(new TextEncoder().encode(input));
+            controller.close(); // Close the stream after enqueueing
+        },
+        pull(controller) {
+            // No-op for now
+        },
+        cancel() {
+            // No-op for now
+        },
+    });
+
+    const reader = stream.getReader();
+
+    reader.read().then(({ value, done }) => {
+        if (done) {
+            console.log("Stream finished.");
+            return;
+        }
+
+        const text = new TextDecoder().decode(value);
+        console.log("Read value:", text);
     });
 }
 target("%input%")

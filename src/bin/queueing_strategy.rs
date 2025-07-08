@@ -10,23 +10,24 @@ thread_local! {
 }
 
 const SCRIPT_FORMAT: &str = r#"
-async function target(input) {
-    const queueingStrategy = new CountQueuingStrategy({ highWaterMark: input});
+function target(input) {
+    const queueingStrategy = new CountQueuingStrategy({ highWaterMark: input });
+
     const writableStream = new WritableStream(
-    {
-        write(chunk) {
-        console.log(chunk)
+        {
+            write(chunk) {
+                console.log(chunk);
+            },
+            close() {
+            },
+            abort(err) {
+                new Error(`Sink error: ${err}`);
+            },
         },
-        close() {
-        },
-        abort(err) {
-           console.log("Sink error:", err);
-        },
-    },
-    queueingStrategy,
+        queueingStrategy
     );
 
-    const size = queueingStrategy.size();
+    const size = queueingStrategy.size(); // Note: size expects an argument
 }
 target(%input%);
 "#;

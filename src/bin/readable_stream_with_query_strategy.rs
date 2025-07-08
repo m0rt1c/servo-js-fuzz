@@ -9,25 +9,34 @@ thread_local! {
 }
 
 const SCRIPT_FORMAT: &str = r#"
-async function target(input, inputStr) {
+function target(input, inputStr) {
     try {
         const queueingStrategy = new ByteLengthQueuingStrategy({ highWaterMark: input });
+
         const readableStream = new ReadableStream(
             {
                 start(controller) {
-                    if (inputStr.length > 0) {
-                        controller.enqueue(new TextEncoder().encode(inputStr));
-                    } else {
-                        controller.enqueue(new TextEncoder().encode("fixed_text"));
-                    }
+                    const text = inputStr.length > 0 ? inputStr : "fixed_text";
+                    controller.enqueue(new TextEncoder().encode(text));
                     controller.close();
                 }
             },
-            queueingStrategy,
+            queueingStrategy
         );
-        for await (const chunk of readableStream) {
-            const size = queueingStrategy.size(chunk);
+
+        const reader = readableStream.getReader();
+
+        function readNext() {
+            reader.read().then(({ done, value }) => {
+                if (done) return;
+
+                const size = queueingStrategy.size(value);
+                
+                readNext();
+            });
         }
+
+        readNext();
     } catch (e) {
         console.error("Error:", e);
     }

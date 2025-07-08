@@ -10,24 +10,21 @@ thread_local! {
 }
 
 const SCRIPT_FORMAT: &str = r#"
-async function target(input) {
-    const writableStream = new WritableStream(
-    {
+function target(input) {
+    const writableStream = new WritableStream({
         write(chunk) {
             let x = chunk;
             console.log(x);
         },
-    },
-    );
+    });
 
     const writer = writableStream.getWriter();
 
-    try {
-    writer.write(input);
-
-    await writer.close();
-    } catch (error) {
-    }
+    writer.write(input)
+        .then(() => writer.close())
+        .catch(error => {
+            // Handle error if needed
+        });
 }
 target("%input%")
 "#;

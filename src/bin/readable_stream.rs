@@ -10,17 +10,25 @@ thread_local! {
 }
 
 const SCRIPT_FORMAT: &str = r#"
-async function target(input) {
-    const readableStream = new ReadableStream(
-        {
-            start(controller) {
+function target(input) {
+    const readableStream = new ReadableStream({
+        start(controller) {
             controller.enqueue(new TextEncoder().encode(input));
             controller.close();
-            }
         }
-    );
-    for await (const chunk of readableStream) {
+    });
+
+    const reader = readableStream.getReader();
+
+    function readNext() {
+        reader.read().then(({ done, value }) => {
+            if (done) return;
+            // Process `value` here if needed
+            readNext(); // Continue reading if there are more chunks
+        });
     }
+
+    readNext();
 }
 target("%input%")
 "#;

@@ -11,27 +11,33 @@ thread_local! {
 
 const SCRIPT_FORMAT: &str = r#"
 const list = document.createElement("ul");
+document.body.appendChild(list); // So it appears on the page
 
-async function sendMessage(message, writableStream) {
-  // defaultWriter is of type WritableStreamDefaultWriter
+function sendMessage(message, writableStream) {
   const defaultWriter = writableStream.getWriter();
   const encoder = new TextEncoder();
   const encoded = encoder.encode(message);
 
-  try {
-    for (const chunk of encoded) {
-      await defaultWriter.ready;
-      await defaultWriter.write(chunk);
-      console.log("Chunk written to sink.");
-    }
-    // Call ready again to ensure that all chunks are written
-    // before closing the writer.
-    await defaultWriter.ready;
-    await defaultWriter.close();
-    console.log("All chunks written");
-  } catch (err) {
-    console.log("Error:", err);
-  }
+  let chain = Promise.resolve();
+
+  encoded.forEach(chunk => {
+    chain = chain
+      .then(() => defaultWriter.ready)
+      .then(() => defaultWriter.write(chunk))
+      .then(() => {
+        console.log("Chunk written to sink.");
+      });
+  });
+
+  chain
+    .then(() => defaultWriter.ready)
+    .then(() => defaultWriter.close())
+    .then(() => {
+      console.log("All chunks written");
+    })
+    .catch(err => {
+      console.log("Error:", err);
+    });
 }
 
 const decoder = new TextDecoder("utf-8");
@@ -40,16 +46,17 @@ let result = "";
 
 const writableStream = new WritableStream(
   {
-    // Implement the sink
     write(chunk) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const buffer = new ArrayBuffer(1);
         const view = new Uint8Array(buffer);
         view[0] = chunk;
         const decoded = decoder.decode(view, { stream: true });
+
         const listItem = document.createElement("li");
         listItem.textContent = `Chunk decoded: ${decoded}`;
         list.appendChild(listItem);
+
         result += decoded;
         resolve();
       });
@@ -63,7 +70,7 @@ const writableStream = new WritableStream(
       console.log("Sink error:", err);
     },
   },
-  queuingStrategy,
+  queuingStrategy
 );
 
 sendMessage("%input%", writableStream);

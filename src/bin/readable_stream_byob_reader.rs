@@ -10,31 +10,26 @@ thread_local! {
 }
 
 const SCRIPT_FORMAT: &str = r#"
-async function target(input) {
+function target(input) {
     const readableStream = new ReadableStream(
         {
             type: "bytes",
             start(controller) {
-            controller.enqueue(new TextEncoder().encode(input));
-            controller.close();
+                controller.enqueue(new TextEncoder().encode(input));
+                controller.close();
             }
         },
         { type: "bytes" }
     );
 
     let buffer = new ArrayBuffer(200);
-    const reader = readableStream.getReader({ mode: "byob" }, buffer);
+    const reader = readableStream.getReader({ mode: "byob" });
 
     let bytesReceived = 0;
     let offset = 0;
 
-    reader
-        .read(new Uint8Array(buffer, offset, buffer.byteLength - offset))
-        .then(function processText({ done, value }) {
-        
-        if (done) {
-            return;
-        }
+    function processText({ done, value }) {
+        if (done) return;
 
         buffer = value.buffer;
         offset += value.byteLength;
@@ -43,8 +38,11 @@ async function target(input) {
         return reader
             .read(new Uint8Array(buffer, offset, buffer.byteLength - offset))
             .then(processText);
-        });
+    }
 
+    reader
+        .read(new Uint8Array(buffer, offset, buffer.byteLength - offset))
+        .then(processText);
 }
 target("%input%")
 "#;
