@@ -19,6 +19,10 @@ You must make sure that the target does not crash with all the inputs, and you m
 
 ## Fuzzing
 
+Set up the machine for fuzzing
+
+`sudo -E cargo afl system-config`, if cargo was installed system wide you may skip the `-E` option
+
 You may start a single core fuzzing instance with: 
 
 `cargo afl fuzz -i in/random -o out target/debug/<target_name>`
@@ -32,12 +36,27 @@ Note that folder in/custom is not tracked by git and you may use it to test new 
 To run multiple master and secondary instances on the same target you may use the `run_fuzzer.sh` script like this
 
 ```
-./run_fuzzer.sh target/debug/<target_name> in out 10
+./run_fuzzer.sh target/debug/<target_name> <in_folder> [true]
 ```
 
 * #1 arg is the full path of the target
-* #2 arg is the full path of the input folder
-* #3 arg is the full path of the output folder, afl will automatically create subdirs based on the main and secondary names **but you may still have conflicts** so you might need to set it to `out/something`
-* #4 arg is the number of cores to use from 2 to 10, this is not yet checked or enfored in the script
+* #2 arg is the full path of the input folder. This is important since each target uses different inputs: scripts, strings, numbers
+* #3 is optional and accepts only value true to start two secondary fuzz instances. Note, this is a work in progress and it might be worth to have more secondary instances for bettere results.
 
 This script will create a tmux instance with a sub instance for each main and secondary instances, not the best but it is a simple example
+
+For example, the all the targets may be started with the following commands. Note, that each instance (main, or secondary) needs a core for itself. So you are limited by the number of CPUs you have (in my case 16). You may list them with `lscpu`.
+
+```bash
+./run_fuzzer.sh ./target/debug/readable_stream_with_query_strategy ./in/strings
+./run_fuzzer.sh ./target/debug/writable_stream ./in/strings
+./run_fuzzer.sh ./target/debug/queueing_strategy ./in/numbers
+./run_fuzzer.sh ./target/debug/readable_stream_byob_reader ./in/strings
+./run_fuzzer.sh ./target/debug/readable_stream_default_controller ./in/strings
+./run_fuzzer.sh ./target/debug/writable_stream_default_controller ./in/strings
+./run_fuzzer.sh ./target/debug/transform_stream ./in/strings true
+./run_fuzzer.sh ./target/debug/pipe_readable_stream ./in/strings
+./run_fuzzer.sh ./target/debug/readable_stream ./in/strings
+./run_fuzzer.sh ./target/debug/count_queuing_strategy ./in/numbers
+./run_fuzzer.sh ./target/debug/random_script ./in/scripts true
+```
