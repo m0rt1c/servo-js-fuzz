@@ -61,6 +61,8 @@ For example, the all the targets may be started with the following commands. Not
 ./run_fuzzer.sh ./target/debug/random_script ./in/scripts true
 ```
 
+The `run_all.sh` script contains these commands.
+
 ### Checking the status
 
 In folder `./out` you will have a folder for each target named after it. For example, `random_script`. You can use the following command to see the stats of the fuzzer.
