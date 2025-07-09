@@ -60,3 +60,11 @@ For example, the all the targets may be started with the following commands. Not
 ./run_fuzzer.sh ./target/debug/count_queuing_strategy ./in/numbers
 ./run_fuzzer.sh ./target/debug/random_script ./in/scripts true
 ```
+
+### Checking the status
+
+In folder `./out` you will have a folder for each target named after it. For example, `random_script`. You can use the following command to see the stats of the fuzzer.
+
+```
+cargo afl whatsup ./out/random_script # or any other target
+```
