@@ -102,6 +102,7 @@ The important things here are:
 1. `Current average speed : 25 execs/sec` how fast we are fuzzing. We would like to see something above 100
 1. `Coverage reached : 2.98%` coverage reached by the fuzzer. If this does not improve over time we need to rething the targets or the inputs (or just wait more time)
 1. `Crashes saved : 0` how many crashes the fuzzer found. If this is above zero we need to go to folder `out/<target_name>/<intance_name>/crashes/` and start triaging the crash. For example, with `cat path/to/crash/file | ./target/debug/<target_name>`
+1. `Timme without finds : 38 seconds` this tells the last time the fuzzer found a new path, if this grows too much the fuzzer will stop as it is not able to find new paths. Again here we need to rethink the targets and the inputs because in a way that they make it possible to explore new paths while fuzzing
 
 ## References
 
