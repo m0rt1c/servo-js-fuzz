@@ -24,9 +24,8 @@ export AFL_NO_AFFINITY=1
 tmux kill-session -t "$SESSION_NAME" 2>/dev/null || true
 
 # --- Main instance ---
-tmux new-session -d -s "$SESSION_NAME" -n "main"
-sleep 1
-tmux send-keys -t "$SESSION_NAME:main" "" C-m
+tmux new-session -d -s "$SESSION_NAME"
+tmux new-window -t "$SESSION_NAME" -n "main"
 tmux send-keys -t "$SESSION_NAME:main" \
   "nix-shell --run 'AFL_LLVM_LAF_ALL=1 AFL_LLVM_INSTRUMENT=PCGUARD cargo afl fuzz -i \"$INPUT_DIR\" -o \"$OUTPUT_DIR\" -M main-${SESSION_NAME} \"$TARGET\"'" C-m
 
