@@ -146,6 +146,7 @@ stdenv.mkDerivation (androidEnvironment // {
   ];
 
   shellHook = ''
+    export LD_LIBRARY_PATH=${pkgs.python311}/lib:$LD_LIBRARY_PATH
     # Fix invalid option errors during linking
     # https://github.com/mozilla/nixpkgs-mozilla/commit/c72ff151a3e25f14182569679ed4cd22ef352328
     unset AS
