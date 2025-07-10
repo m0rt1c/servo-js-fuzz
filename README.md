@@ -5,6 +5,7 @@
 1. If you are on a server `sudo apt install xorg -y`
 1. `git submodule init && git submodule update --depth 1`
 1. `nix-shell` or follow github.com/servo/servo documentation on how to install all the build dependencies and the github.com/AFLplusplus/AFLplusplus requirements
+    1. Note from now on every command is meant to be run in the nix-shell
 1. `rustup default stable`
 1. `cargo install cargo-afl`
 1. `cargo afl config --build`
@@ -78,6 +79,8 @@ In folder `./out` you will have a folder for each target named after it. For exa
 ```
 cargo afl whatsup ./out/random_script # or any other target
 ```
+
+Or use `./check_status.sh`
 
 ## References
 
