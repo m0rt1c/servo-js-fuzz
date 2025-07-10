@@ -2,6 +2,7 @@
 ## Setup
 
 1. Install nix
+1. If you are on a server `sudo apt install xorg -y`
 1. `git submodule init && git submodule update --depth 1`
 1. `nix-shell` or follow github.com/servo/servo documentation on how to install all the build dependencies and the github.com/AFLplusplus/AFLplusplus requirements
 1. `rustup default stable`
