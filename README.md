@@ -69,6 +69,8 @@ For example, the all the targets may be started with the following commands. Not
 
 The `run_all.sh` script contains these commands.
 
+Note, that if you start and stop them manually you might have conflicts in the `out/<target_name>` folder and you might need to rename it or delete it.
+
 ### Checking the status
 
 In folder `./out` you will have a folder for each target named after it. For example, `random_script`. You can use the following command to see the stats of the fuzzer.
