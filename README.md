@@ -21,9 +21,8 @@ You must make sure that the target does not crash with all the inputs, and you m
 
 ### Set up the machine for fuzzing
 
-1. `sudo -E cargo afl system-config`, if cargo was installed system wide you may skip the `-E` option
-2. `echo core | sudo tee /proc/sys/kernel/core_pattern`
-3. `cd /sys/devices/system/cpu && echo performance | sudo tee cpu*/cpufreq/scaling_governor`
+1. `echo core | sudo tee /proc/sys/kernel/core_pattern`
+1. `cd /sys/devices/system/cpu && echo performance | sudo tee cpu*/cpufreq/scaling_governor`
 
 You may start a single core fuzzing instance with: 
 
