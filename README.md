@@ -36,7 +36,7 @@ You may start a single core fuzzing instance with:
 
 Note you may change the `in/random` folder to select different starting inputs
 Note you may use just the `in` folder to select all starting inputs
-Note that folder in/custom is not tracked by git and you may use it to test new inputs
+Note that folder `in/custom` is not tracked by git and you may use it to test new inputs
 
 ### Wrapper script
 
