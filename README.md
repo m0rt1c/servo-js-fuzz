@@ -6,6 +6,7 @@
 1. `git submodule init && git submodule update --depth 1`
 1. `nix-shell` or follow github.com/servo/servo documentation on how to install all the build dependencies and the github.com/AFLplusplus/AFLplusplus requirements
 1. `rustup default stable`
+1. `cargo install cargo-afl`
 1. `cargo afl config --build`
 1. `cargo afl build`
 
@@ -13,10 +14,13 @@
 
 To test that each target is working you may run the following command and observe the output. Where `target_name` is one of the files under `src/bin` without the `.rs` extension: for example `random_script`.
 
-`cat path/to/test/input | ./target/debug/<target_name>`
+`cat path/to/test/input | ./target/debug/<target_name>` Note that the command migth hang
 
-Note that the command will hange since it expect the corpus to crash it
-You must make sure that the target does not crash with all the inputs, and you may use this to check if your target is behaving correctly
+or
+
+`AFL_DEBUG=1 RUST_BACKTRACE=full cargo afl fuzz -i in/random -o out/<target_name> target/debug/<target_name>`
+
+You must make sure that the target does not crash with all the inputs, and you may use these to check if your target is behaving correctly
 
 ## Fuzzing
 
@@ -72,3 +76,9 @@ In folder `./out` you will have a folder for each target named after it. For exa
 ```
 cargo afl whatsup ./out/random_script # or any other target
 ```
+
+## References
+
+1. AFL++ Overview [https://aflplus.plus/](https://aflplus.plus/)
+1. AFL++ Fuzzing in depth [https://aflplus.plus/docs/fuzzing_in_depth/](https://aflplus.plus/docs/fuzzing_in_depth/)
+1. Rust Fuzz Book [https://rust-fuzz.github.io/book/afl.htm](https://rust-fuzz.github.io/book/afl.htm)
