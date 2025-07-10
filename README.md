@@ -77,10 +77,31 @@ Note, that if you start and stop them manually you might have conflicts in the `
 In folder `./out` you will have a folder for each target named after it. For example, `random_script`. You can use the following command to see the stats of the fuzzer.
 
 ```
-cargo afl whatsup ./out/random_script # or any other target
+cargo afl whatsup -s -m ./out/random_script # or any other target
 ```
 
 Or use `./check_status.sh`
+
+The output will look like
+```
+./out/readable_stream_byob_reader
+Summary stats
+=============
+        Fuzzers alive : 1
+       Total run time : 6 minutes, 1 seconds
+Current average speed : 25 execs/sec
+   Pending per fuzzer : 1 faves, 107 total (on average)
+     Coverage reached : 2.98%
+        Crashes saved : 0
+   Time without finds : 38 seconds
+```
+
+The important things here are:
+
+1. `Fuzzers alive : 1` how many fuzzers are running. Less than one means we are not fuzzing this target, maybe we stopped it or maybe there was some other error
+1. `Current average speed : 25 execs/sec` how fast we are fuzzing. We would like to see something above 100
+1. `Coverage reached : 2.98%` coverage reached by the fuzzer. If this does not improve over time we need to rething the targets or the inputs (or just wait more time)
+1. `Crashes saved : 0` how many crashes the fuzzer found. If this is above zero we need to go to folder `out/<target_name>/<intance_name>/crashes/` and start triaging the crash. For example, with `cat path/to/crash/file | ./target/debug/<target_name>`
 
 ## References
 
