@@ -102,6 +102,7 @@ stdenv.mkDerivation (androidEnvironment // {
     zsh
     python3Packages.pip
     tmux
+    wayland
 
     (rustPlatform.buildRustPackage {
       name = "crown";
