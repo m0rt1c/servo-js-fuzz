@@ -2,10 +2,10 @@
 ## Setup
 
 1. Install nix
-1. If you are on a server `sudo apt install xorg -y`
+1. If you are on a server, `sudo apt install xorg -y`
 1. `git submodule init && git submodule update --depth 1`
 1. `nix-shell` or follow github.com/servo/servo documentation on how to install all the build dependencies and the github.com/AFLplusplus/AFLplusplus requirements
-    1. Note from now on every command is meant to be run in the nix-shell
+     1. Note: From now on every command is meant to be run in the `nix-shell`
 1. `rustup default stable`
 1. `cargo install cargo-afl`
 1. `cargo afl config --build`
@@ -48,7 +48,7 @@ To run multiple master and secondary instances on the same target you may use th
 
 * #1 arg is the full path of the target
 * #2 arg is the full path of the input folder. This is important since each target uses different inputs: scripts, strings, numbers
-* #3 is optional and accepts only value true to start two secondary fuzz instances. Note, this is a work in progress and it might be worth to have more secondary instances for bettere results.
+* #3 is optional and accepts only the value true to start two secondary fuzz instances. Note, this is a work in progress, and it might be worth it to have more secondary instances for better results
 
 This script will create a tmux instance with a sub instance for each main and secondary instances, not the best but it is a simple example
 
@@ -100,7 +100,7 @@ The important things here are:
 
 1. `Fuzzers alive : 1` how many fuzzers are running. Less than one means we are not fuzzing this target, maybe we stopped it or maybe there was some other error
 1. `Current average speed : 25 execs/sec` how fast we are fuzzing. We would like to see something above 100
-1. `Coverage reached : 2.98%` coverage reached by the fuzzer. If this does not improve over time we need to rething the targets or the inputs (or just wait more time)
+1. `Coverage reached : 2.98%` coverage reached by the fuzzer. If this does not improve over time we need to rethink the targets or the inputs (or just wait more time)
 1. `Crashes saved : 0` how many crashes the fuzzer found. If this is above zero we need to go to folder `out/<target_name>/<intance_name>/crashes/` and start triaging the crash. For example, with `cat path/to/crash/file | ./target/debug/<target_name>`
 1. `Timme without finds : 38 seconds` this tells the last time the fuzzer found a new path, if this grows too much the fuzzer will stop as it is not able to find new paths. Again here we need to rethink the targets and the inputs because in a way that they make it possible to explore new paths while fuzzing
 
