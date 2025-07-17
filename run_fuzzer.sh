@@ -13,6 +13,13 @@ INPUT_DIR="$2"
 SESSION_NAME=$(basename "$TARGET")
 OUTPUT_DIR="./out/$SESSION_NAME"
 
+if [ -d "${OUTPUT_DIR}" ]; then
+  # In case the output dir exists already we recover the past job
+  echo "OUTPUT_DIR already exists, recovering past fuzzing session"
+  echo "If you want to start from a clean state remove or rename foler '${OUTPUT_DIR}'"
+  INPUT_DIR="-"
+fi
+
 # Environment config
 export AFL_TESTCACHE_SIZE=200
 export AFL_IMPORT_FIRST=1
