@@ -27,6 +27,8 @@ You must make sure that the target does not crash with all the inputs, and you m
 
 ### Set up the machine for fuzzing
 
+The following commands set the performance settings required by AFl++. Note that when you restart the machine you **must** run them again.
+
 1. `echo core | sudo tee /proc/sys/kernel/core_pattern`
 1. `cd /sys/devices/system/cpu && echo performance | sudo tee cpu*/cpufreq/scaling_governor`
 
