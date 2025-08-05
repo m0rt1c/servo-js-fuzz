@@ -167,6 +167,17 @@ Note, it is important to use a `OnceLock` in order to initialize the Servo insta
 
 To add new inputs it is enough to place thme under one of the `./in` folders. Note that adding them while the fuzzer is running will not add them to the queues you have to restart the fuzzer for it to see them. 
 
+## Analysing crashes
+
+### Finding crashes
+
+1. Run `./check_status.sh` script that will run `cargo afl whatsup` on all the targets
+1. If you see a crash you can find the file path with the following command
+
+```bash
+find ./out -type f -path '*/crashes/*' -not -name '*.txt'
+```
+
 ## References
 
 1. AFL++ Overview [https://aflplus.plus/](https://aflplus.plus/)
