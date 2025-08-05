@@ -14,7 +14,7 @@ function create_wait_tmux_window {
 }
 
 function wait_tmux_window {
-  while ! tmux list-windows -t "${SESSION_NAME}" | grep -q "^0: ${1}"; do
+  while ! tmux list-windows -t "${SESSION_NAME}" | grep -q "${1}"; do
     sleep 0.1
   done
 }
