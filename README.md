@@ -8,7 +8,7 @@
      1. Note: From now on every command is meant to be run in the `nix-shell`
 1. `rustup default stable`
 1. `cargo install cargo-afl`
-1. `cargo afl config --build`
+1. `cargo afl config --build --force`
 1. `AFL_LLVM_CMPLOG=1 cargo afl build`
 
 ## Testing
