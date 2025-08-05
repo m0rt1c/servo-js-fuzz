@@ -9,7 +9,7 @@
 1. `rustup default stable`
 1. `cargo install cargo-afl`
 1. `cargo afl config --build`
-1. `cargo afl build`
+1. `AFL_LLVM_CMPLOG=1 cargo afl build`
 
 ## Testing
 
