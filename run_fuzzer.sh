@@ -20,13 +20,6 @@ if [ -d "${OUTPUT_DIR}" ]; then
   INPUT_DIR="-"
 fi
 
-# Environment config
-export AFL_TESTCACHE_SIZE=200
-export AFL_IMPORT_FIRST=1
-export AFL_FINAL_SYNC=1
-export AFL_IGNORE_SEED_PROBLEMS=1
-export AFL_NO_AFFINITY=1
-
 # Kill existing tmux session
 tmux kill-session -t "$SESSION_NAME" 2>/dev/null || true
 
@@ -39,7 +32,7 @@ while ! tmux list-windows -t "$SESSION_NAME" | grep -q "^0: main"; do
   sleep 0.1
 done
 tmux send-keys -t "$SESSION_NAME:main" \
-  "nix-shell --run 'AFL_LLVM_LAF_ALL=1 AFL_LLVM_INSTRUMENT=PCGUARD cargo afl fuzz -i \"$INPUT_DIR\" -o \"$OUTPUT_DIR\" -M main-${SESSION_NAME} \"$TARGET\"'" C-m
+  "nix-shell --run 'AFL_FINAL_SYNC=1 cargo afl fuzz -i \"$INPUT_DIR\" -o \"$OUTPUT_DIR\" -M main-${SESSION_NAME} \"$TARGET\"'" C-m
 
 if [[ $# -ge 3 ]]; then
   SECONDARY="$3"
