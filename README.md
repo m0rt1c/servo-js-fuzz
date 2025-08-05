@@ -171,7 +171,7 @@ To add new inputs it is enough to place thme under one of the `./in` folders. No
 
 ### Finding crashes
 
-1. Run `./check_status.sh` script that will run `cargo afl whatsup` on all the targets
+1. Run `./check_status.sh | grep Crashes` script that will run `cargo afl whatsup` on all the targets
 1. If you see a crash you can find the file path with the following command
 
 ```bash
