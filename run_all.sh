@@ -10,4 +10,4 @@
 ./run_fuzzer.sh ./target/debug/pipe_readable_stream ./in/strings
 ./run_fuzzer.sh ./target/debug/readable_stream ./in/strings
 ./run_fuzzer.sh ./target/debug/count_queuing_strategy ./in/numbers
-./run_fuzzer.sh ./target/debug/random_script ./in/scripts true
+./run_fuzzer.sh ./target/debug/eval_script ./in/scripts true
