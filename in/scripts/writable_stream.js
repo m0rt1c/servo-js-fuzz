@@ -14,4 +14,4 @@ function target(input) {
            new Error(`Sink error: ${err}`);
         });
 }
-target("input")
+target("input");

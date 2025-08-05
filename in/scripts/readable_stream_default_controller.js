@@ -22,4 +22,4 @@ function target(input) {
         console.log("Read value:", text);
     });
 }
-target("input")
+target("input");

@@ -32,4 +32,4 @@ function target(input) {
         .read(new Uint8Array(buffer, offset, buffer.byteLength - offset))
         .then(processText);
 }
-target("input")
+target("input");

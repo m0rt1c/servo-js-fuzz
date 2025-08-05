@@ -17,4 +17,4 @@ function target(input) {
 
     readNext();
 }
-target("input")
+target("input");
