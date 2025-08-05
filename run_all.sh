@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ./run_fuzzer.sh ./target/debug/readable_stream_with_query_strategy ./in/strings
 ./run_fuzzer.sh ./target/debug/writable_stream ./in/strings
