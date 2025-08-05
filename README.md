@@ -74,6 +74,20 @@ The `run_all.sh` script contains these commands.
 
 Note, that if you start and stop them manually you might have conflicts in the `out/<target_name>` folder and you might need to rename it or delete it.
 
+### eval_script target
+
+The `eval_script` targets was found to be the only one yielding crashes so I wrote a wrapper just for this target that uses one main instance and 14 secondary. 
+
+Note that it was meant to run on a server with 16 cores and might not work on your local setup so I suggest you edit it before running it.
+
+Note that some of the secondary might fail at start because of a timeout in reading the testcases but you can enter the tmux shell and restart the last command manually.
+
+```bash
+./run_eval_script_target.sh
+```
+
+
+
 ### Checking the status
 
 In folder `./out` you will have a folder for each target named after it. For example, `eval_script`. You can use the following command to see the stats of the fuzzer.
