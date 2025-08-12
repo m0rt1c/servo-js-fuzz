@@ -5,5 +5,17 @@
 in/custom/*
 !in/custom/.gitkeep
 
+triage/crashes/*
+!triage/crashes/.gitkeep
+
+triage/crashes-min/*
+!triage/crashes-min/.gitkeep
+
+triage/crashes-unique/*
+!triage/crashes-unique/.gitkeep
+
+triage/pocs/*
+!triage/pocs/.gitkeep
+
 out/*
 !out/.gitkeep
