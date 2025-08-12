@@ -86,8 +86,6 @@ Note that some of the secondary might fail at start because of a timeout in read
 ./run_eval_script_target.sh
 ```
 
-
-
 ### Checking the status
 
 In folder `./out` you will have a folder for each target named after it. For example, `eval_script`. You can use the following command to see the stats of the fuzzer.
@@ -191,6 +189,10 @@ To add new inputs it is enough to place thme under one of the `./in` folders. No
 ```bash
 find ./out -type f -path '*/crashes/*' -not -name '*.txt'
 ```
+
+### Triaging
+
+Folder `triage` contains scripts to help triaging and pocs creation
 
 ## References
 
