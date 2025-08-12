@@ -194,6 +194,8 @@ find ./out -type f -path '*/crashes/*' -not -name '*.txt'
 
 Folder `triage` contains scripts to help triaging and pocs creation
 
+Note, these scripts must be run from the project root dir and not from inside the triage folder
+
 ## References
 
 1. AFL++ Overview [https://aflplus.plus/](https://aflplus.plus/)
