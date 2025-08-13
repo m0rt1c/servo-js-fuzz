@@ -10,6 +10,6 @@ find ./triage/crashes -type f -not -name '.gitkeep' -print -exec bash -c 'cargo 
 
 # Use afl cmin to find unique crashes
 
-cargo afl tmin -C -i ./triage/crashes-min/ -o ../triage/crashes-unique/ ./target/debug/eval_script
+cargo afl cmin -C -i ./triage/crashes-min/ -o ./triage/crashes-unique/ ./target/debug/eval_script
 
 
