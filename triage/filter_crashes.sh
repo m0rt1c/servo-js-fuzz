@@ -2,10 +2,10 @@
 
 set -euo pipefail
 
-TARGET="${1}"
+TARGET="./target/debug/eval_script"
 
-if [ -z "${TARGET}" ]; then
-    TARGET="./target/debug/eval_script"
+if [ "$#" -eq 1 ]; then 
+    TARGET="${1}"
 fi
 
 # Copy all the crashes in one single folder
