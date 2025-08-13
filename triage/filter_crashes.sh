@@ -10,7 +10,7 @@ fi
 
 # Copy all the crashes in one single folder
 
-find ./out -type f -path '*/crashes/*' -not -name '*.txt' -exec cp ./triage/crashes \;
+find ./out -type f -path '*/crashes/*' -not -name '*.txt' -exec cp {} ./triage/crashes \;
 
 # Minimize each crash
 
