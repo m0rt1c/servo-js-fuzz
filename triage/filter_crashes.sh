@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
+TARGET="${1}"
+
+if [ -z "${TARGET}" ]; then
+    TARGET="./target/debug/eval_script"
+fi
+
 # Copy all the crashes in one single folder
 
-find ./out -type f -path '*/crashes/*' -not -name '*.txt' -exec cp {} ./triage/crashes \;
+find ./out -type f -path '*/crashes/*' -not -name '*.txt' -exec cp ./triage/crashes \;
 
-# Use afl tmin to minimize the crash corpus
+# Minimize each crash
 
-find ./triage/crashes -type f -not -name '.gitkeep' -print -exec bash -c 'cargo afl tmin -i {} -o ./triage/crashes-min/$(basename {}).min.js -- ./target/debug/eval_script' \;
-
-# Use afl cmin to find unique crashes
-
-cargo afl cmin -C -i ./triage/crashes-min/ -o ./triage/crashes-unique/ ./target/debug/eval_script
-
-
+find ./triage/crashes -type f -not -name '.gitkeep' -print -exec bash -c 'cargo afl tmin -i ${1} -o ./triage/crashes-min/$(basename ${1}).min.js ${2}' {} "${TARGET}" \;
