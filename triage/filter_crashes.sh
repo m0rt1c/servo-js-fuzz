@@ -14,4 +14,4 @@ find ./out -type f -path '*/crashes/*' -not -name '*.txt' -exec cp {} ./triage/c
 
 # Minimize each crash
 
-find ./triage/crashes -type f -not -name '.gitkeep' -print -exec bash -c 'cargo afl tmin -i ${1} -o ./triage/crashes-min/$(basename ${1}).min.js -- ${2}' {} "${TARGET}" \;
+find ./triage/crashes -type f -not -name '.gitkeep' -print -exec bash -c 'cargo afl tmin -i ${0} -o ./triage/crashes-min/$(basename ${0}).min.js -- ${1}' {} "${TARGET}" \;
